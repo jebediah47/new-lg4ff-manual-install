@@ -10,8 +10,12 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-def check_input(input):
-    if input.lower() in ["y", "yes", "", "n", "no"]:
+def validate_yn(prompt: str):
+    if prompt.lower() in ["y", "yes", ""]:
         return True
+    elif prompt.lower() in ["n", "no"]:
+        print(f"{bcolors.FAIL}Exiting...{bcolors.ENDC}")
+        exit(1)
     else:
-        return False
+        print(f"{bcolors.FAIL}Invalid input, exiting...{bcolors.ENDC}")
+        exit(1)

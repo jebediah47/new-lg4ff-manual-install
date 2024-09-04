@@ -17,7 +17,7 @@ def main():
             print(f"{bcolors.WARNING}Command '{command}' not found{bcolors.ENDC}")
 
     if not missing_commands:
-            print(f"{bcolors.OKGREEN}All required commands found in PATH{bcolors.ENDC}")
+            print(f"{bcolors.OKGREEN}All required commands found{bcolors.ENDC}")
     else:
         print(f"{bcolors.FAIL}Missing commands: {", ".join(str(x) for x in missing_commands)}{bcolors.ENDC}")
         print(f"{bcolors.FAIL}{bcolors.BOLD}Please install the missing packages before proceeding{bcolors.ENDC}")
@@ -38,23 +38,11 @@ def main():
         print(f"{bcolors.OKBLUE}Fedora Atomic detected{bcolors.ENDC}")
         if missing_commands:
             pkgs_inst = input("Would you like to install the required packages? [Y/n] ")
-            if check_input(pkgs_inst) == False:
-                print(f"{bcolors.FAIL}Invalid input, exiting...{bcolors.ENDC}")
-                exit(1)
-            elif pkgs_inst.lower() in ["n", "no"]:
-                print(f"{bcolors.FAIL}Exiting...{bcolors.ENDC}")
-                exit(1)
-            else:
+            if validate_yn(pkgs_inst):
                 print(f"This command will be executed: {bcolors.WARNING}{bcolors.BOLD}rpm-ostree install {" ".join(str(x) for x in missing_commands)}{bcolors.ENDC}")
                 print(f"{bcolors.WARNING}Please note that this will require a reboot{bcolors.ENDC}")
                 pkgs_inst2 = input("Would you like to proceed? [Y/n] ")
-                if check_input(pkgs_inst2) == False:
-                    print(f"{bcolors.FAIL}Invalid input, exiting...{bcolors.ENDC}")
-                    exit(1)
-                elif pkgs_inst2.lower() in ["n", "no"]:
-                    print(f"{bcolors.FAIL}Exiting...{bcolors.ENDC}")
-                    exit(1)
-                else:
+                if validate_yn(pkgs_inst2):
                     os.system(f"rpm-ostree install {" ".join(str(x) for x in missing_commands)}")
                     print(f"{bcolors.OKGREEN}Packages installed successfully{bcolors.ENDC}")
                     print(f"{bcolors.WARNING}Please reboot your system for the changes to take effect!{bcolors.ENDC}")

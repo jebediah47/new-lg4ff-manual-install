@@ -42,7 +42,7 @@ if not os.path.exists(build_dir):
 if not os.path.exists(f"{build_dir}/current"):
     os.makedirs(f"{build_dir}/current")
 
-os.system(f"cp /home/cllupo/Downloads/new-lg4ff/hid-logitech-new.ko {build_dir}/{local_commit_hash}")
+os.system(f"cp /home/{username}/Downloads/new-lg4ff/hid-logitech-new.ko {build_dir}/{local_commit_hash}")
 
 if os.path.exists(f"{build_dir}/{local_commit_hash}"):
     os.symlink(f"{build_dir}/{local_commit_hash}/hid-logitech-new.ko", f"{build_dir}/current/hid-logitech-new.ko")
